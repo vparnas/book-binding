@@ -2,20 +2,20 @@
 Printing those books compactly.
 
 ## Description
-The solution, orchestrated via a Makefile, the Latex typesetting system, and a handful of PDF processing utilities (namely `pdfjam` and `pdftk`), generates A6/quarter-(US-)letter (or compatible) bindings from public-domain texts or those in the user's ownership. It embeds these bindings onto full sheets, appropriately collated and ready for immediate printing on a regular household printer. At present, the binding is held via staples or the less elegant solutions discussed below.
+The solution, orchestrated via a Makefile, the Latex typesetting system, and a handful of PDF processing utilities (namely `pdfjam` and `pdftk`), generates A6/quarter-sheet bindings from public-domain texts or otherwise anything which the user has a right to print. It embeds these bindings onto full sheets, appropriately collated and ready for immediate printing on a regular household printer. At present, the binding is held via staples or the less elegant solutions discussed below.
 
-The idea is for the text to spread compactly across the pages, superfluous white space eliminated, margins reduced and font minimal but still comfortable enough for the eyes. Each binding is accompanied by a config which enables overriding numerous sizing and formatting options, customizing the title page with an optional graphic, and triggering the Table of Contents. Otherwise, very little space is wasted, the reader choosing what to include and what to omit from the source material.
+The idea is for the text to spread compactly across the pages, superfluous white space eliminated, margins reduced and font minimal but still comfortable for reading. Each binding is accompanied by a configuration file enabling the overriding of numerous sizing and formatting options, customizing the title page with an optional background graphic, and triggering the Table of Contents. Otherwise, very little space is wasted, the reader choosing what to include from the source material.
 
 ## Business case
 Public domain texts, though subject to country-specific regulation, tend to constitute works over a certain age - a hundred years in the US. Without detailing the full implications of *public domain*, these texts, in short, can be downloaded and used as you will for non-commercial purposes, or with certain constraints commercially that I shall here not detail.
 
 It is my assumption that paper book readers still span great numbers, and that a substantial portion of them reads books in the public domain. The solution enables this audience to compact their reading to a miniature binding weighing *between one and two ounces*, easily manageable in the palm of a hand and squeezable into the tightest of confines like a pants pocket or a belt pouch. Also, the ability to house a small library within a shoebox proves an asset under confined spacial considerations.
 
+More generally, the solution caters to any text you want as a mini-booklet and not a  stack of full sheets.
+
 Economy-wise, for texts sufficiently compact, the solution yields cost savings over acquiring the public domain text from commercial outlets, particularly when sold new.
 
-Now given all the present constraints: the manual labor involved in the latex priming of the downloaded source text, the further labor for printing, cutting, folding and stapling - all that together is easily justified given the amount of time we spend with that book and the physical advantage gained in the compactness.
-
-Now considering the time we otherwise spend acquiring that book from commercial outlets, the net incremental labor might not amount to all that much.
+Now given all the present constraints: the manual labor involved in the latex priming of the downloaded source text, the further labor for printing, cutting, folding and stapling - all that together is easily justified given the amount of time we spend with that book and the physical advantage gained in the compactness. Considering the time we otherwise spend acquiring that book from commercial outlets, the net incremental labor might not amount to all that much.
 
 [^NOTE]: priming - anywhere from 10-30 minutes per my experience, once accustomed to the process
 
@@ -23,13 +23,13 @@ Now considering the time we otherwise spend acquiring that book from commercial 
 
 ### Text Length
 
-Provided these bindings are held together by regular staples and not an alternative mechanism such as paper-clips (described below) or untried methods: the texts lending to a single binding are on the compacter range of upwards to ~35000 words for prose (eight-nine physical sheets, or 64-72 mini (quarter) pages, as each physical sheet produces eight quarter-pages across both sides). That's because the full-sheets are cut in half, the two half-sheet stacks collated, folded, and stapled across what is now double the width. So using a regular hand stapler, I'm unable to join any quantity of pages beyond that.
+Provided these bindings are held together by regular staples and not an alternative mechanism such as paper-clips (described below) or untried methods: the texts lending to a single binding are on the compacter range of upwards to ~35000 words for prose - that's eight-nine physical sheets, or 64-72 mini (quarter) pages (a full sheet equates to eight booklet pages across both sides). That's because the full sheets are sliced in half, the two half-sheet stacks collated, folded, and stapled across what is now double the width. 
 
-Now should you have access to a more industrial stapler, the page count *can* be expanded, but not by much, as a stack of only so many sheets can be folded before it becomes too ... what's the word ... ungainly?
+So using at least a regular hand stapler, I'm unable to join any quantity of pages beyond that. Now should you have access to a more industrial stapler, the page count *can* expand, but not by much, as a stack of only so many sheets can be folded before it becomes too ... what's the word ... ungainly?
 
-That word count limitation further decreases for poetry and drama formats, those being subject to sparser formatting (frequent line breaks, stanza groupings, labels and whatnot). Though ultimately, the user, as an 'editor' and primer of texts, wields significant control over the process.
+That word count limitation further decreases for poetry and drama, those formats subject to sparser formatting (frequent line breaks, stanza groupings, labels and whatnot). Though ultimately the user, as an 'editor' and primer of texts, bears significant control over the process.
 
-To provide a frame of reference, examples of texts suitable to these constraints, many of which I've either printed or primed for printing via the solution, include:
+To provide a frame of reference, examples of texts suitable to these constraints, many of which I've either printed or prepared the PDFs, include:
 
 - Three of Marcelle Schwob's story collections.
 - Arthur Rimbaud's *Une Saison en Enfer* and *Illuminations*
@@ -82,7 +82,7 @@ That said, once accustomed to the process, the above can be handled in 10-30 min
 
 **(A) Public-Domain (project Gutenberg) text in the plain-text format**
 
-**->** (priming, manual labor, limited automation)
+**-->** (priming, manual labor, limited automation)
 
 **(B) Latex formatted text**
 
@@ -94,25 +94,26 @@ That said, once accustomed to the process, the above can be handled in 10-30 min
 
 - book metadata, formatting options, mini-page size, font, optional TOC, etc ...
 
-**->**
+**-->**
 
 **(C) Quarter-sheet pdf**
 - Here you gage what the final output will look like, check formatting, verify the page count.
 
-**->**
+**-->**
 
 **(D) Half-sheet pdf** - an intermediary output consisting of two quarter-sheets per page.
 
-**->**
+**-->**
 
 **(E) Full-page pdf** - the final output containing four quarter-pages per each full page. Ready for printing.
 
 ### Alternative, shorter pipeline
 
-Take any existing small-page pdf (not necessarily yet A6/quarter-page size), or even some larger-page text (of particularly large font) reducible to a quarter-page. Apply manual cutting (via pdfjam or similar) to make even compacter. This becomes your input **C** directly, to feed into stage **D**.
+Take any existing small-page pdf (not necessarily yet A6/quarter-page size), or even some larger-page text (of particularly large font) reducible to a quarter-sheet. Apply manual cutting (via pdfjam or similar) to further compact. This becomes your input **C** directly, to feed into stage **D**.
 
 ## Printing/binding process
 - Print your final (stage **E**) full-page 'multiplexed' pdf, verifying the preview to mitigate any superfluous borders.
+
 - Cut resulting full pages in half across the width via one of
     1. hand folding and tearing. *
     1. hand folding and scissor cut, this usually resulting in imperfections *
@@ -120,10 +121,12 @@ Take any existing small-page pdf (not necessarily yet A6/quarter-page size), or 
 
     \* Proceed in smaller batches to avoid mishaps
 - Fold the resulting half-sheet stacks in half, length-wise.
+
 - Combine all the above into a booklet, verifying page numbers. The lower stack should immediately proceed the upper.
+
 - Two staples somewhere across the upper and lower parts of the 'spine' - challenging with a regular hand-stapler for lack of reach to the spine across the quarter-page width - but doable - requires crafty folding to accomodate.
-- Alternative, sloppy, paper-clip solution:
-    - should the width surpass the 'stapalable' constraints, hold one side of the pages together by paper clips - one above, one below, close to the center on the side of the book obviously *not* read at the time. The bindings are small and light enough anyway that it's not much of a structural issue.
+
+- Alternative, sloppy, paper-clip solution: should the width surpass the 'stapalable' constraints, hold one side of the pages together by paper clips - one above, one below, close to the center on the side of the book obviously *not* read at the time. The bindings are small and light enough anyway that it's not much of a structural issue.
 
 ## Ideas/improvements
 - Automate in whole or part the Latex priming of the Gutenberg plain text (or compatible) with predictable structure.
