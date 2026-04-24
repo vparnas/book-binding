@@ -3,11 +3,11 @@
 **In Progress**
 
 ## Dependencies
-pdflatex
-pdfjam
-pdftk
-pdfinfo
+- pdflatex
+- pdfjam
+- pdftk
+- pdfinfo
 
 ## TODO
-Latex distribution
-OS requirements
+- Latex distribution
+- OS requirements
