@@ -1,27 +1,40 @@
 # book-binding
 Printing those books compactly.
 
-## Description
-The solution, orchestrated via a Makefile, the Latex typesetting system, and a handful of PDF processing utilities (namely `pdfjam` and `pdftk`), generates A6/quarter-sheet bindings from public-domain texts or otherwise anything which the user has a right to print. It embeds these bindings onto full sheets, appropriately collated and ready for immediate printing on a regular household printer. At present, the binding is held via staples or the less elegant solutions discussed below.
+## Contents
+- [Description](#desc)
+- [Business case](#business)
+- [Constraints](#constrain)
+    - [Text Length](#textleng)
+    - [Latex Priming](#priming)
+    - [Manual Binding](#manual_binding)
+- [The Pipeline](#pipeline)
+    - [Alternative, shorter pipeline](#alternati)
+- [Printing/binding process](#printing)
+- [Ideas/improvements](#ideas)
+- [References](#ref)
+
+## Description <a name="desc"></a>
+The solution, orchestrated via a Makefile, the Latex typesetting system, and a handful of PDF processing utilities (namely `pdfjam` and `pdftk`), generates A6/quarter-sheet bindings from public-domain or any text which the user has a right to print. It embeds these bindings onto full sheets, appropriately collated and ready for immediate printing on a regular household printer. At present, the binding is held together via staples or the less elegant solutions discussed below.
 
 The idea is for the text to spread compactly across the pages, superfluous white space eliminated, margins reduced and font minimal but still comfortable for reading. Each binding is accompanied by a configuration file enabling the overriding of numerous sizing and formatting options, customizing the title page with an optional background graphic, and triggering the Table of Contents. Otherwise, very little space is wasted, the reader choosing what to include from the source material.
 
-## Business case
+## Business case <a name="business"></a>
 Public domain texts, though subject to country-specific regulation, tend to constitute works over a certain age - a hundred years in the US. Without detailing the full implications of *public domain*, these texts, in short, can be downloaded and used as you will for non-commercial purposes, or with certain constraints commercially that I shall here not detail.
 
-It is my assumption that paper book readers still span great numbers, and that a substantial portion of them reads books in the public domain. The solution enables this audience to compact their reading to a miniature binding weighing *between one and two ounces*, easily manageable in the palm of a hand and squeezable into the tightest of confines like a pants pocket or a belt pouch. Also, the ability to house a small library within a shoebox proves an asset under confined spacial considerations.
+It is my **assumption** that paper book readers still span great numbers, and that a substantial portion of them reads books in the public domain. The solution enables this audience to compact their reading to a miniature binding weighing *between one and two ounces*, easily manageable in the palm of a hand and squeezable into the tightest of confines like a pants pocket or a belt pouch. Also, the ability to house a small library within a shoebox proves an asset under confined spacial considerations.
 
-More generally, the solution caters to any text you want as a mini-booklet and not a  stack of full sheets.
+More generally, the solution caters to any text you want as a mini-booklet and not a stack of full sheets.
 
 Economy-wise, for texts sufficiently compact, the solution yields cost savings over acquiring the public domain text from commercial outlets, particularly when sold new.
 
-Now given all the present constraints: the manual labor involved in the latex priming of the downloaded source text, the further labor for printing, cutting, folding and stapling - all that together is easily justified given the amount of time we spend with that book and the physical advantage gained in the compactness. Considering the time we otherwise spend acquiring that book from commercial outlets, the net incremental labor might not amount to all that much.
+Now given all the present [constraints](#constrain): the manual labor involved in the latex priming of the downloaded source text, the further labor for printing, cutting, folding and stapling - all that together is easily justified given the amount of time we spend with that book and the physical advantage gained in the compactness. Considering the time we otherwise spend acquiring that book at commercial outlets, the net incremental labor might not amount to all that much.
 
 [^NOTE]: priming - anywhere from 10-30 minutes per my experience, once accustomed to the process
 
-## Constraints
+## Constraints <a name="constrain"></a>
 
-### Text Length
+### Text Length <a name="textleng"></a>
 
 Provided these bindings are held together by regular staples and not an alternative mechanism such as paper-clips (described below) or untried methods: the texts lending to a single binding are on the compacter range of upwards to ~35000 words for prose - that's eight-nine physical sheets, or 64-72 mini (quarter) pages (a full sheet equates to eight booklet pages across both sides). That's because the full sheets are sliced in half, the two half-sheet stacks collated, folded, and stapled across what is now double the width. 
 
@@ -52,9 +65,7 @@ Should you wish to print larger texts: split bindings into one, two, or however 
 
 The entire Dante's *Commedia* without translations or commentary, I've primed into six booklets, each at only about 60-70% width capacity (per the said stapling constraints), hence two booklets for each of the three volumes. I've seen commercial bindings of this work (with substantial commentary, granted) sizeable enough to occupy a backpack.
 
-### Manual Latex Priming
-
-**Plain-text source**
+### Latex Priming <a name="priming"></a>
 
 I've chosen to work with the plain text versions of public-domain texts. The HTML counterparts I deemed too complex to convert to Latex, which would require substantial cutting/manipulating of HTML elements. And I wasn't satisfied with the output of the automated conversion tools for this purpose (Pandoc), though that's not to say there isn't opportunity. Meanwhile, the plain text versions are already 99% aligned with the final Latex output we want for these minimalist bindings.
 
@@ -78,7 +89,15 @@ That 1%, however, complicates automation effort. Though there's a narrow but rea
 
 That said, once accustomed to the process, the above can be handled in 10-30 minutes per text of largely prose; longer for non-uniform poetry and drama.
 
-## The Current Pipeline
+**Mitigation strategy**
+
+See [USAGE](USAGE.md) and [ideas/improvements](#ideas).
+
+### Manual Binding <a name="manual_binding"></a>
+
+The printing, cutting, folding and stapling involves some manual labor. See [below](#printing).
+
+## The Pipeline <a name="pipeline"></a>
 
 **(A) Public-Domain (project Gutenberg) text in the plain-text format**
 
@@ -97,22 +116,27 @@ That said, once accustomed to the process, the above can be handled in 10-30 min
 **-->**
 
 **(C) Quarter-sheet pdf**
-- Here you gage what the final output will look like, check formatting, verify the page count.
+
+- Here you gauge how the final output will appear
+- Check formatting, verify the page count, make editing decisions.
+- Or use the output directly with a custom printer/online publisher that can work with this size.
 
 **-->**
 
-**(D) Half-sheet pdf** - an intermediary output consisting of two quarter-sheets per page.
+**(D) Half-sheet pdf** - an intermediary output consisting of two quarter-pages per page.
 
 **-->**
 
 **(E) Full-page pdf** - the final output containing four quarter-pages per each full page. Ready for printing.
 
-### Alternative, shorter pipeline
+### Alternative, shorter pipeline <a name="alternati"></a>
 
-Take any existing small-page pdf (not necessarily yet A6/quarter-page size), or even some larger-page text (of particularly large font) reducible to a quarter-sheet. Apply manual cutting (via pdfjam or similar) to further compact. This becomes your input **C** directly, to feed into stage **D**.
+Take any existing small-page or even a larger-page pdf of any arbitrary dimension and text size sufficiently large and facilitating the reduction to a quarter-sheet. Apply manual cutting (via `pdfjam` or similar) to further compact. This becomes your input **C** directly, to feed into stage **D**.
 
-## Printing/binding process
-- Print your final (stage **E**) full-page 'multiplexed' pdf, verifying the preview to mitigate any superfluous borders.
+## Printing/binding process <a name="printing"></a>
+- Print your final (stage **E**) full-page 'multiplexed' pdf in **duplex**, verifying the preview to mitigate any superfluous borders or undesirable side-effects.
+
+    - **Make sure to print duplex** - the entire collated page sequence depends on this in order to fold into a booklet.
 
 - Cut resulting full pages in half across the width via one of
     1. hand folding and tearing. *
@@ -128,14 +152,14 @@ Take any existing small-page pdf (not necessarily yet A6/quarter-page size), or 
 
 - Alternative, sloppy, paper-clip solution: should the width surpass the 'stapalable' constraints, hold one side of the pages together by paper clips - one above, one below, close to the center on the side of the book obviously *not* read at the time. The bindings are small and light enough anyway that it's not much of a structural issue.
 
-## Ideas/improvements
+## Ideas/improvements <a name="ideas"></a>
 - Automate in whole or part the Latex priming of the Gutenberg plain text (or compatible) with predictable structure.
 - Improve the printing/binding process.
 - A longer/better/industrial stapler.
 - An alternative binding method of comparable or improved efficiency to stapling, accessible via non-specialized and easily available tools, and removing or at least not further constricting the stapling-width limitation.
 - A5/half-US-Letter-size printing to eliminate the sheet cutting process
 
-## References
+## References <a name="ref"></a>
 
 - [Project Gutenberg](https://www.gutenberg.org/) — primary source for public-domain texts
 - [Standard Ebooks](https://standardebooks.org/) — carefully formatted, modernized public-domain editions
