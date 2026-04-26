@@ -12,6 +12,7 @@ Printing those books compactly.
     - [Alternative, shorter pipeline](#alternati)
 - [Printing/binding process](#printing)
 - [Ideas/improvements](#ideas)
+- [Example Gallery](#gallery)
 - [References](#ref)
 
 ## Description <a name="desc"></a>
@@ -158,6 +159,23 @@ Take any existing small-page or even a larger-page pdf of any arbitrary dimensio
 - A longer/better/industrial stapler.
 - An alternative binding method of comparable or improved efficiency to stapling, accessible via non-specialized and easily available tools, and removing or at least not further constricting the stapling-width limitation.
 - A5/half-US-Letter-size printing to eliminate the sheet cutting process
+
+## Example Gallery <a name="gallery"></a>
+
+| Cover | Inside | TOC |
+|---|---|---|
+|![][1]|![][2]|![][3]|
+|![][4]|![][5]|![][6]|
+|![][7]|![][8]||
+
+[1]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl1-front.jpg
+[2]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl1-inside.jpg
+[3]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl1-toc.jpg
+[4]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl2-front.jpg
+[5]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl2-inside.jpg
+[6]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl2-toc.jpg
+[7]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl3-front.jpg
+[8]: https://raw.githubusercontent.com/vparnas/book-binding/master/img/exmpl3-inside.jpg
 
 ## References <a name="ref"></a>
 
