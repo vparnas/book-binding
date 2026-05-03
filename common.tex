@@ -1,0 +1,202 @@
+\ifdefined\FONTSIZE\else\def\FONTSIZE{10pt}\fi
+\ifdefined\HEADERSIZE\else\def\HEADERSIZE{0.5in}\fi
+\ifdefined\FOOTERSIZE\else\def\FOOTERSIZE{0.3in}\fi
+\ifdefined\WIDTH\else\def\WIDTH{116mm}\fi
+\ifdefined\HEIGHT\else\def\HEIGHT{163mm}\fi
+\ifdefined\INNER\else\def\INNER{0.2in}\fi
+\ifdefined\OUTER\else\def\OUTER{0.2in}\fi
+\ifdefined\PDFSUBJECT\else\def\PDFSUBJECT{}\fi
+\ifdefined\PDFKEYWORDS\else\def\PDFKEYWORDS{}\fi
+
+\documentclass[\FONTSIZE,openany]{book}
+\usepackage{geometry}
+\geometry{papersize={\WIDTH,\HEIGHT}, inner=\INNER, outer=\OUTER, top=\HEADERSIZE, bottom=\FOOTERSIZE}
+
+\usepackage{multicol}
+\setlength{\multicolsep}{0.0pt} % doesn't seem to be of impact
+\setlength{\columnsep}{0pt}
+
+\usepackage[none]{hyphenat} % justify without all the word cutting
+\usepackage{alltt} % For typing verse verbatim
+\usepackage{amsmath} % NOTE include per variable?
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor} % Needed for \colorbox
+\usepackage{graphicx} % For images
+\usepackage{pdfpages} % needed if including external pdf
+\graphicspath{ {images/} }
+
+% ================ Verse package config ===============
+% TODO: include per variable?{{{
+\usepackage{verse} % for typesetting poems - used for the macros contained within
+% https://tex.stackexchange.com/questions/68878/prevent-break-after-poemtitle
+\makeatletter
+\renewcommand{\@vstypeptitle}[1]{%
+  \vspace{\beforepoemtitleskip}
+  {\poemtitlefont #1\par}\nobreak
+  \vspace{\afterpoemtitleskip}
+}
+\makeatother
+
+\newcommand{\poemauthor}[1]{\nopagebreak{\footnotesize\textsc{#1}\par}}
+\newcommand{\poemauthorcenter}[1]{\nopagebreak{\centering\footnotesize\textsc{#1}\par}}
+\newcommand{\poemauthorright}[1]{\nopagebreak{\raggedleft\footnotesize\textsc{#1}\par}}
+
+\newcommand{\poemdate}[1]{\poemauthorright{#1}}
+\newcommand{\prosedate}[1]{\poemdate{#1}}
+\newcommand{\prosetitle}[1]{\poemtitle{#1}}
+\newcommand{\playsection}[1]{\subsection*{#1}}
+
+\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\centering}
+\setlength{\stanzaskip}{0.75\baselineskip}
+% ===================================================
+% ================ End of Verse package config ========}}}
+
+% NOTE: \nobreak of no impact; \centering or \filcenter work only with \par afterwards, which adds extra space
+% \newcommand{\mytitle}[1]{{\centering\normalfont\bfseries\large#1}\nobreak}
+\newcommand{\mytitle}[1]{{\normalfont\bfseries\filcenter\large#1}\nobreak}
+
+\usepackage[utf8]{inputenc} % no longer required (since 2018)?
+\ifdefined\LANGUAGE
+    \usepackage[T2B]{fontenc} % For Cyryllic can use T2A, T2B or T2C
+    \usepackage[\LANGUAGE,english]{babel}
+\else
+    \usepackage[T1]{fontenc} % International character encodings
+    \usepackage{palatino} % Use the Palatino font by default
+    %\usepackage{stix} % Alternative Stix font
+\fi
+% With texlive-lang-greek installed, alphabeta suffices for occasional greek text entered varbatim without explicitly changing encoding or language
+\usepackage{alphabeta}
+
+% Along with hyperlink settings, sets the PDF metadata
+\usepackage[
+hidelinks,
+pdftitle={\TITLE},
+pdfauthor={\AUTHOR},
+pdfsubject={\PDFSUBJECT},
+pdfkeywords={\PDFKEYWORDS}
+]{hyperref}
+\usepackage{bookmark} % to enable trailing chapters to divorce from the last book part
+
+\usepackage{sectsty}
+\sectionfont{\centering}
+\subsectionfont{\centering}
+\subsubsectionfont{\centering}
+
+% nobottomtitles integral to evade pagebreak after section titles
+\usepackage[nobottomtitles,compact]{titlesec}
+% TODO: config variable for the before spacing (second argument)
+\titlespacing{\section}{0pt}{6pt plus 0pt minus 2pt}{0pt}
+\titlespacing{\subsection}{0pt}{6pt plus 0pt minus 2pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
+\titleformat{\chapter}[display]{\Huge\bfseries\filcenter}{}{1em}{} % removes the 'Chapter' label and centers
+
+% Remove the spacing between paragraphs and have a small paragraph indentation
+% NOTE, in non-alttt environment, with no \section spacings, everything will be squeezed to the limit, unless some other, ie \begin environment is used
+% can consider \newpage before prose section commencements
+% the good news of below config: can also include line-separated verse verbatim, which will appear, each line equally indented, perfectly naturally, and standing out from surrounding prose paragraphs
+% TODO: make configurable
+
+\setlength{\parskip}{0cm}
+\setlength{\parindent}{1em}
+\setlength{\itemsep}{0.0em} % NOTE doesn't seem to have impact unless included within every list
+
+\ifdefined\PAGESTYLE
+    \pagestyle{\PAGESTYLE}
+\else
+    \pagestyle{headings}
+\fi
+
+% suppress all chapter/section numbers for secnumdepth >= value
+% part = -2, chapter = -1, section = 0, subsection = 1, etc 
+\setcounter{secnumdepth}{-2}
+%\Roman{secnumdepth}
+
+\sloppy % opt on varied spaces to properly justify paragraphs
+
+% Custom title for Table of Contents page
+% TODO: does not accept cyryllic text
+\ifdefined\TOC
+    \ifnum\pdfstrcmp{\TOC}{}=0
+    \else
+        \renewcommand*\contentsname{\TOC}
+    \fi
+\fi
+
+% Set the PDF as a background
+\newcommand{\setpdfbackground}[1]{
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center, inner sep=0] at (current page.center)
+        %{\includegraphics[page=1,width=0.8\textwidth, keepaspectratio]{#1}};
+        {\includegraphics[page=1,height=\paperheight, keepaspectratio]{#1}};
+    \end{tikzpicture}
+}
+
+\begin{document}
+\newgeometry{margin=0pt, noheadfoot}
+\begin{titlepage}
+\ifdefined\MYCOVER % A graphic for the entire cover page
+    \vspace*{\fill}
+    \centering
+    \includegraphics[scale=1.00]{\MYCOVER}
+    \vspace*{\fill}
+\else
+    \ifdefined\COVERBNG % Just the background graphic
+        \setpdfbackground{\COVERBNG}
+    \fi
+    % NOTE: might need to compile twice if drawing multiple tikz elements!
+    \setlength\fboxsep{0.0pt}
+    \setlength\fboxrule{0.5pt}
+    \vspace*{\fill}
+    \begin{center}
+    \fbox{\colorbox{white}{
+        \begin{minipage}{0.7\textwidth}
+            \vspace{0.5cm}
+            \centering
+            {\Huge \textsc{\TITLE}}\\[1cm]
+            % note: the \\ newlines will not work with empty content
+            \ifdefined\PREAUTHOR
+                {\PREAUTHOR}\\[0.5cm]
+            \fi
+            {\Large \textsc{\AUTHOR}}\\[1cm]
+            \ifdefined\TITLEBODY
+                {\TITLEBODY}\\[1cm]
+            \fi
+            \ifdefined\DATE
+                {\large \DATE}
+            \fi
+            \vspace{0.5cm}
+        \end{minipage}
+    }}
+    \end{center}
+    \vspace*{\fill}
+\fi
+\end{titlepage}
+\restoregeometry
+
+\ifdefined\CRIGHT
+    \begin{center}
+        \vspace*{\fill}
+        \input{\CRIGHT} % Entire copyright page text
+        \vspace*{\fill}
+    \end{center}
+    \newpage
+\fi
+
+\ifdefined\ALTTT
+    \begin{alltt}\normalfont
+\fi
+\input{\MAINBODY}
+\ifdefined\ALTTT
+    \end{alltt}
+\fi
+\ifdefined\TOC
+    \tableofcontents
+\fi
+\ifdefined\FOOTER
+    \newpage
+    \input{\FOOTER} % About author, back cover or anything of that sort, for now
+\fi
+\end{document}
