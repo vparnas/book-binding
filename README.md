@@ -155,7 +155,7 @@ Take any existing small-page or even a larger-page pdf of any arbitrary dimensio
 
 ## Ideas/improvements <a name="ideas"></a>
 - Automate in whole or part the Latex priming of the Gutenberg plain text (or compatible) with predictable structure.
-- Improve the printing/binding process.
+- Improve the physical printing/binding process.
 - A longer/better/industrial stapler.
 - An alternative binding method of comparable or improved efficiency to stapling, accessible via non-specialized and easily available tools, and removing or at least not further constricting the stapling-width limitation.
 - A5/half-US-Letter-size printing to eliminate the sheet cutting process

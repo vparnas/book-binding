@@ -99,7 +99,7 @@ TeX Live on Debian/Ubuntu is split into many `texlive-*` metapackages. The safes
 sudo apt update
 sudo apt install texlive-latex-base texlive-latex-recommended \
                  texlive-latex-extra texlive-fonts-recommended \
-                 texlive-pictures texlive-science texlive-publishers
+                 texlive-pictures texlive-science texlive-humanities
 
 # For Cyrillic support
 sudo apt install texlive-lang-cyrillic
